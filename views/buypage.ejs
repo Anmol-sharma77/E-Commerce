@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Confirm Purchase</title>
+        <style>
+             *{
+            margin:0;
+            padding: 0;
+          }
+            table {
+              font-family: arial, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+            .signup-container {
+            background-color: #b5b4b2;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 500px;
+            padding: 30px;
+            width: 400px;
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .signup-form label {
+            display: inline-block;
+            width: 40%; 
+            font-size: 16px;
+        }
+        .signup-form input[type="text"],
+        .signup-form input[type="number"],
+        .signup-form input[type="file"] {
+            width: 50%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+        }
+        
+        .signup-form button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .signup-form button:hover {
+            background-color: #45a049;
+        }
+
+        .signup-form p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup-form p a {
+            color: #4CAF50;
+        }
+        nav {
+    background-color:rgb(57, 56, 56);
+    border-bottom: 1px solid #cccccc;
+    width:100%;
+    position: sticky;
+    top:0;
+    left: 0;
+    margin-left: 0%;
+    overflow: hidden;
+    height: 120px;
+  }
+  .cart{
+    width: 10%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1cded8;
+    color:white;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+            </style>
+    </head>
+    <body>
+        <nav> 
+            <h1 style="text-align:center;
+            font-family:'Times New Roman', Times, serif;
+            font-size: 50px;
+            color: white;">Shop Buddy</h1>
+            <button id="back" class="cart" type="submit">Back</button>
+          </nav>
+        <table id="table">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Quantity</th>
+                <th>Grand Total</th>
+            </tr>
+        </table>
+        <h1 id="h1"></h1>
+        <div class="signup-container" >
+            <h2>Buy Products</h2>
+            <div class="signup-form" id="div2">
+                <label for="name">Name:</label>
+                <input type="text" name="username" id="name" placeholder="Enter your Name..." required><br>
+                <label  for="phn">Phone Number:</label>
+                <input type="number" id="phn" name="phn" placeholder="Enter Your phone number" required>
+                <label for="adr">House no./flat/gali:</label>
+                <input type="text" id="adr" name="adr" placeholder="Enter Your Address" required><br>
+                <label  for="pincode">Pin Code:</label>
+                <input type="number" id="pincode" name="pincode" placeholder="Enter area pin code" required>
+                <label for=dis>Village:</label>
+                <input id="dis" type="text" name="dis" placeholder="Enter your Village">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" placeholder="Enter Your city" required><br>
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" placeholder="Enter Your State" required><br>
+                <label for="paym">Payment method:</label>
+                <select id="select">
+                    <option value="COD">Cash On Delivery</option>
+                </select>
+                <br><br><button type="submit" id="btn">Buy Now</button>
+                </div>
+        </div>
+    </body>
+    <script>
+        const back=document.getElementById("back");
+        const h1=document.getElementById("h1");
+        const table=document.getElementById("table");
+        const pincode=document.getElementById("pincode");
+        const btn=document.getElementById("btn");
+        const name=document.getElementById("name");
+        const phn = document.getElementById('phn');
+        const adr = document.getElementById('adr') ;
+        const dis = document.getElementById('dis') ;
+        const state = document.getElementById('state') ;
+        const select = document.getElementById('select') ;
+        const city=document.getElementById("city");
+        var total=0;
+        back.addEventListener("click",function(){
+            window.location.href="/cart";
+        });
+        getbuy(function(error,data){
+            if(error)
+            {
+                console.log(error);
+            }
+            else
+            {
+                data.forEach(function(x){
+                    total+=x[0].quantity*x[0].price;
+                    addtodom(x);
+                });
+                h1.innerHTML="Total Amount:$"+total;
+            }
+        });
+        btn.addEventListener("click",function(){
+            if(name.value!=""&&phn.value!=""&&adr.value!=""&&dis.value!=""&&state.value!=""&&city.value!=""&&select.value!=""&&pincode.value!=""){
+                var obj={"name":name.value,"phn":phn.value,"adr":adr.value,"city":city.value,"dis":dis.value,"state":state.value,"method":select.value,"pincode":pincode.value};
+            buyproduct(obj,function(err){
+                if(err)
+                {
+                    console.log(err);
+                }
+                else
+                {
+                    window.location.href="/myorders";
+                }
+            });
+        }
+            else{
+                alert("Please fill all the fields");
+            }
+        });
+        function getbuy(callback)
+        {
+            fetch("/buyproducts").then(function(response){
+                if(response.status!=200)
+                {
+                    console.log("Error");
+                }
+                else
+                return response.json();
+            }).then(function(data){
+                callback(null,data);
+            }).catch(function(error){
+                callback("something Went Wrong",null);
+            })
+        }
+        function addtodom(prdct)
+        {
+            var row = document.createElement('tr');
+            var cell1 = document.createElement('td');
+            var cell2 = document.createElement('td');
+            var cell3 = document.createElement('td');
+            var cell4 = document.createElement('td');
+            cell1.innerHTML=prdct[0].product;
+            cell2.innerHTML=prdct[0].price;
+            cell3.innerHTML=prdct[0].quantity;
+            cell4.innerHTML=prdct[0].price*prdct[0].quantity;
+            table.appendChild(row);
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            row.appendChild(cell3);
+            row.appendChild(cell4);
+        }
+        function buyproduct(obj,callback)
+        {
+            console.log(obj);
+            fetch("/buycart",{
+                method:"POST",
+                headers:{"content-type":"application/json"},
+                body:JSON.stringify(obj),
+            }).then(function(response)
+            {
+                if(response.status==200)
+                {
+                    callback();
+                }
+                else
+                {
+                    callback("Something Went Wrong");
+                }
+            }).catch(function(error){
+                callback("Something Went Wrong");
+            });
+        }
+    </script>
+</html>

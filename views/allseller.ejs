@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            nav {
+    background-color:rgb(57, 56, 56);
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    height: 120px;
+  }
+  nav a {
+    display: block;
+    float: left;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  nav a:hover {
+    background-color: #ddd;
+  }
+  .cart{
+    width: 10%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1cded8;
+    color:white;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  h1{
+    text-align:center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+  }
+  .product-container {
+    border-radius: 10px;
+    background-color:rgba(201, 198, 198, 0.593);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 200px;
+    height: 300px;
+    display: block;
+    flex-wrap: wrap;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+img{
+    margin-left: 25px;
+    width:150px;
+    height:150px;
+    background-color: #333;
+    border-radius: 15px;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.btn{
+    width:80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color:rgb(34, 36, 37);
+    margin-left: 50px;
+    color: white;
+}
+h2{
+    float: left;
+    width: 100%;
+}
+.view{
+    width:90px;
+    height: 30px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color:steelblue;
+    color: white;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.title {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 24px;
+  color: #777;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+}
+.popup-content {
+  background-color:rgba(201, 198, 198, 0.593);
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  color: black
+}
+.close-button:hover {
+  color: #e74c3c;
+}
+        </style>
+        <title>Your Cart</title>
+    </head>
+    <body>
+        <nav> 
+            <h1>Shop Buddy</h1>
+            <!-- <button id="user" class="cart" type="submit">Users</button> -->
+            <!-- <button id="seller" class="cart" type="submit">Sellers</button> -->
+            <button id="home" class="cart" type="submit">Return to home</button>
+          </nav>
+          <div style="display:flex; flex-wrap: wrap;" id="div1"></div>
+          <button id="view"class="view">View More</button>
+          <!-- <div style="display:none; flex-wrap: wrap;" id="div2"></div>
+          <button id="view2"style="display:block" class="view">View More</button> -->
+            <div class="container" style="display: none;"id="oops">
+              <h1 class="title">Oops!!</h1>
+              <h2 class="subtitle">Your request is empty</h2>
+            </div>
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                  <span class="close-button" id="close">&times;</span>
+                  <h2>Product Details</h2>
+                  <p>Price: $19.99</p>
+                  <p>Description: Lorem ipsum dolor sit amet...</p>
+                </div>
+              </div>
+    </body>
+    <script>
+        const div1=document.getElementById("div1");
+        // const div2=document.getElementById("div2");
+        const more=document.getElementById("view");
+        // const more2=document.getElementById("view2");
+        const home=document.getElementById("home");
+        // const sellers=document.getElementById("seller");
+        // const user=document.getElementById("user");
+        const oops=document.getElementById("oops");
+        var num=0,num2=0;
+        getseller(function(error,data){
+        if(error)
+       {
+        console.log(error);
+        }
+        else{
+        if(data.length==0){
+            oops.style.display="block";
+            div1.style.display="none";
+        }
+        if(data.length<5)
+            {
+                more.style.display="none";
+            }
+            num+=5;
+            data.forEach(function(x){
+                addtodom(x);
+        });
+    }
+});
+more.addEventListener("click",function(){
+    getseller(function(error,data){
+        if(error)
+       {
+        console.log(error);
+        }
+        else{
+        if(data.length==0||data.length<5)
+            {
+                more.style.display="none";
+            }
+            num+=5;
+            data.forEach(function(x){
+                addtodom(x);
+        });
+    }
+});
+});
+// more2.addEventListener("click",function(){
+//     getusers(function(error,data){
+//         if(error)
+//        {
+//         console.log(error);
+//         }
+//         else{
+//         if(data.length==0||data.length<5)
+//             {
+//                 more2.style.display="none";
+//             }
+//         else{
+//             more2.style.display="block";
+//         }
+//             num+=5;
+//             data.forEach(function(x){
+//                 addtodom2(x);
+//         });
+//     }
+// });   
+// });
+    function getseller(callback){
+        fetch("/allseller?num="+num).then(function(response)
+    {
+        if(response.status===401)
+        {
+            throw new Error("something went wrong");
+        }
+        return response.json();
+    }).then(function(pr){
+        callback(null,pr);
+    }).catch(function(error){
+        callback(error,null);
+    });
+    }
+    function addtodom(data)
+{
+    console.log(data);
+    const divv=document.createElement("div");
+    const h2=document.createElement("h2");
+    const p=document.createElement("p");
+    const p2=document.createElement("p");
+    const img=document.createElement("img");
+    divv.setAttribute("class","product-container");
+    h2.innerHTML=data.name;
+    p.innerHTML=data.mail;
+    p2.innerHTML=data.orgname;
+    img.src=data.sellerimg;
+    div1.appendChild(divv);
+    divv.appendChild(img);
+    divv.appendChild(h2);
+    divv.appendChild(p);
+    divv.appendChild(p2);
+    divv.addEventListener("click",function(){
+        openPopup2(data);
+    });
+}
+function openPopup2(data) {
+    const popupContent = document.querySelector(".popup-content");
+    popupContent.innerHTML = `
+     <span class="close-button" id="close" >&times;</span>
+      <img src="${data.sellerimg}" alt="${data.name}">
+      <h2>${data.name}</h2>
+      <p>Age: ${data.age}</p>
+      <p>Mail:${data.mail}
+      <p>Organisation: ${data.orgname}</p>
+      <p>District:${data.district}</p>
+      <p>State:${data.state}</p>
+      <img src="${data.image}" alt="adhaar">
+    `;
+    const popup = document.getElementById("popup");
+    const closeBtn = document.getElementById("close");
+    popup.style.display = "block";
+    closeBtn.addEventListener("click", function () {
+      popup.style.display = "none";
+    });
+    window.addEventListener("click", function (e) {
+      if (e.target === popup) {
+        popup.style.display = "none";
+      }
+    });
+}
+// sellers.addEventListener("click",function(){
+//     div2.style.display="none";
+//     if(div1.hasChildNodes())
+//     {
+//         oops.style.display="none";
+//         div1.style.display="flex";
+//     }
+//     else{
+//         oops.style.display="block";
+//         div1.style.display="none";
+//     }
+// });
+// function openPopup(prdct) {
+//   const popupContent = document.querySelector(".popup-content");
+//   popupContent.innerHTML = `
+//    <span class="close-button" id="close" >&times;</span>
+//     <img src="${prdct.filename}" alt="${prdct.product}">
+//     <h2>${prdct.product}</h2>
+//     <p>Price: ${prdct.price}</p>
+//     <p>Description: ${prdct.des}</p>
+//   `;
+//   const popup = document.getElementById("popup");
+//   const closeBtn = document.getElementById("close");
+//   popup.style.display = "block";
+//   closeBtn.addEventListener("click", function () {
+//     popup.style.display = "none";
+//   });
+//   window.addEventListener("click", function (e) {
+//     if (e.target === popup) {
+//       popup.style.display = "none";
+//     }
+//   });
+// }
+home.addEventListener("click",function(){
+    window.location.href="/" ;
+});
+// user.addEventListener("click",function()
+// {
+//     div2.style.display="flex";
+//     div1.style.display="none";
+//     if(div2.hasChildNodes())
+//     {
+//         oops.style.display="none";
+//         div2.style.display="flex";
+//     }
+
+// });
+// getusers(function(error,data){
+//         if(error)
+//        {
+//         console.log(error);
+//         }
+//         else{
+//         if(data.length==0||data.length<5)
+//             {
+//                 more2.style.display="none";
+//             }
+//         else{
+//             more2.style.display="block";
+//         }
+//             num+=5;
+//             data.forEach(function(x){
+//                 addtodom2(x);
+//         });
+//     }
+// });
+// function getusers(callback){
+//         fetch("/allusers?num="+num2).then(function(response)
+//     {
+//         if(response.status===401)
+//         {
+//             throw new Error("something went wrong");
+//         }
+//         return response.json();
+//     }).then(function(pr){
+//         callback(null,pr);
+//     }).catch(function(error){
+//         callback(error,null);
+//     });
+//     }
+//     function addtodom2(prdct)
+// {
+//     const divv=document.createElement("div");
+//     const h2=document.createElement("h2");
+//     const p=document.createElement("p");
+//     const p2=document.createElement("p");
+//     const img=document.createElement("img");
+//     const btn1=document.createElement("button");
+//     const btn2=document.createElement("button");
+//     divv.setAttribute("class","product-container");
+//     btn1.setAttribute("class","btn");
+//     btn2.setAttribute("class","btn");
+//     p.innerHTML="Email: "+prdct.mail;
+//     h2.innerHTML=prdct.username;
+//     btn1.innerHTML="Delete";
+//     btn2.innerHTML="View desc";
+//     div2.appendChild(divv);
+//     divv.appendChild(img);
+//     divv.appendChild(h2);
+//     divv.appendChild(p);
+//     divv.appendChild(btn1);
+//     divv.appendChild(btn2);
+//     btn2.addEventListener("click",function(){
+//         openPopup2(prdct);
+//     });
+//     btn1.addEventListener("click",function(){
+//         fetch("/delpro",{
+//             method:"DELETE",
+//             headers:{'Content-Type':'application/json'},
+//             body:JSON.stringify({id:prdct.prid,file:prdct.filename})
+//         }).then(function(response){
+//             if(response.status===200)
+//             {
+//                 div2.removeChild(divv);
+//             }
+//             else{
+//                 console.log("Something went wrong");
+//             }
+//         }).catch(function(error){
+//             console.log(error);
+//         });
+// });
+// }
+    </script>
+</html>

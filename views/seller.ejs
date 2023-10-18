@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Page</title>
+    <style>
+        .dropdown {
+  overflow: hidden;
+  width: 9%;
+}
+.dropdown .dropbtn {
+  font-size: 16px;
+  width: 100%;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #8f8d8d;
+  width: 100px;
+  margin-top: 43px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  /* width: 100px; */
+  margin-top: 8px;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: #b5b4b2;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 500px;
+            padding: 30px;
+            width: 400px;
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .signup-form label {
+            display: inline-block;
+            width: 40%; 
+            font-size: 16px;
+        }
+        .signup-form input[type="text"],
+        .signup-form input[type="number"],
+        .signup-form input[type="file"] {
+            width: 50%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+        }
+        
+        .signup-form button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .signup-form button:hover {
+            background-color: #45a049;
+        }
+
+        .signup-form p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup-form p a {
+            color: #4CAF50;
+        }
+        nav {
+    background-color:rgb(57, 56, 56);
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    height: 120px;
+  }
+  nav a {
+    display: block;
+    float: left;
+    color: #333;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  nav a:hover {
+    background-color: #ddd;
+  }
+  .cart{
+    width: 10%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1cded8;
+    color:white;
+    font-size: 16px;
+    float: right;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .cart2{
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1cded8;
+    color:white;
+    font-size: 16px;
+    float: left;
+    cursor: pointer;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+        .product-container {
+    background-color: #fff;
+    border-radius: 10px;
+    background-color: rgba(201, 198, 198, 0.593);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 200px;
+    height: 340px;
+    display: block;
+    flex-wrap: wrap;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+h1{
+    text-align:center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+  }
+img{
+    margin-left: 25px;
+    width:150px;
+    height:150px;
+    background-color: #333;
+}
+.btn{
+    width:80px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(34, 36, 37);
+    color: #fff;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.title {
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 24px;
+  color: #777;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.view{
+    width:90px;
+    height: 30px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color:steelblue;
+    color: white;
+}
+    </style>
+</head>
+<body>
+    <nav> 
+        <h1>Shop Buddy</h1>
+        <button id="lgout" class="cart" type="submit" >Logout</button>
+        <button class="cart" id="selreq">Product Request</button>
+        <button class="cart" id="monthlyreport">Monthly report</button>
+        <button id="reset" class="cart" type="submit" style="float: left; display:none;">Reset Password</button>
+        <div class="dropdown">
+            <button class="cart2">Buy Request 
+            </button>
+            <div class="dropdown-content">
+              <a href="/buyrequest">Pending Request</a>
+              <a href="/approveorder">Approved Request</a>
+              <a href="/deliveredorder">Delivered orders</a>
+              <a href="/cancelorder">canceled orders</a>
+            </div>
+          </div>
+      </nav>
+    <div class="signup-container" >
+        <h2>Welcome Seller</h2>
+        <div class="signup-form" id="div2">
+            <label for="pr">Product name:</label>
+            <input type="text" name="product" id="pr" placeholder="Product Name..." required><br>
+            <label  for="des">Product description:</label>
+            <input type="text" id="des" name="des" placeholder="Product description..." required>
+            <label for="price">Product Price:</label>
+            <input type="number" id="price" name="price" placeholder="Product Price" required><br>
+            <label for="quan">Product Quantity:</label>
+            <input type="number" id="quan" name="quantity" placeholder="Product quantity" required><br>
+            <label for="file">Product image:</label>
+            <input style="border: none;" id="file" type="file" name="img">
+            <button type="submit" id="btn">Add Product</button>
+            </div>
+    </div>
+    <div class="container" style="display: none;"id="oops">
+              <h1 class="title">Oops!!</h1>
+              <h2 class="subtitle">Your Cart is empty</h2>
+            </div>
+    <div style="display:flex; flex-wrap: wrap; " id="div1">
+    </div>
+    <button id="view"class="view">View More</button>
+</body>
+<script src="/seller.js"></script>
+</html>

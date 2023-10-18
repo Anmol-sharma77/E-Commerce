@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #1cded8, #3498db);
+            color: black;
+        }
+
+        nav {
+            background-color: transparent;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .title {
+            font-size: 60px;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 30px;
+            color: #eee;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .cart {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .cart:hover {
+            background-color: #1cded8;
+        }
+
+        .cart2 {
+            width: 30%;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s;
+            float: right;
+            height: 50px;
+        }
+
+        .cart2:hover {
+            background-color: #1cded8;
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 60px;
+            color: black;
+            text-shadow : 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .img-container {
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            width: 20%;
+            height: 100%;
+        }
+
+        .product-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            width: 95%;
+            height: 220px;
+            margin-top: 20px;
+            margin-left: 40px;
+            display: flex;
+        }
+
+        .payment-container {
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            width: 30%;
+            height: 100%;
+        }
+
+        .detail-container {
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            height: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px 0px 0px 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            margin-top: 10px;
+            margin-left: 20px;
+            font-weight: 600;
+        }
+
+        .btn {
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: #3498db;
+            margin-top: 40px;
+            margin-left: 10px;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1cded8;
+        }
+
+        h2 {
+            float: left;
+            width: 100%;
+        }
+
+        .view {
+            width: 120px;
+            height: 40px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background-color: #f1c40f;
+            color: #333;
+            font-size: 18px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view:hover {
+            background-color: #f39c12;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .popup-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            text-align: center;
+            color: #333;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-button:hover {
+            color: #e74c3c;
+        }
+
+        footer {
+            text-align: center;
+            background-color: transparent;
+            color: #1cded8;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+        /* Additional styles for enhanced visual appeal */
+        .highlight {
+            background-color: #f1c40f;
+            color: #333;
+        }
+    </style>
+    <title>Order Details</title>
+</head>
+
+<body>
+    <nav>
+        <h1>Shop Buddy</h1>
+        <button id="home" class="btn" type="submit">Home</button>
+    </nav>
+    <div class="container" id="div1">
+        <!-- Your content goes here -->
+    </div>
+    <div class="container" id="oops" style="display: none;">
+        <h1 class="title highlight">Oops!!</h1>
+        <h2 class="subtitle">No Orders</h2>
+    </div>
+    <!-- Add your "View More" button or other elements here -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button" id="close">&times;</span>
+            <!-- Popup content goes here -->
+        </div>
+    </div>
+    <footer>
+        <h3 style="color: black;">&copy; 1996-2023, Shopbuddy.com, Inc. or its affiliates</h3>
+    </footer>
+    <script src="/myorders.js"></script>
+</body>
+
+</html>

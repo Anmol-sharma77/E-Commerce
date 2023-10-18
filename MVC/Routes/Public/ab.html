@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Confirm Purchase</title>
+        <style>
+            /* Reset some default styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation styles */
+nav {
+  background-color: #333;
+  border-bottom: 3px solid #1cded8;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+nav h1 {
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 36px;
+  color: white;
+  padding: 20px 0;
+  margin: 0;
+}
+
+/* Back button styles */
+#back {
+  background-color: #1cded8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  float: right;
+  margin: 10px;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+#back:hover {
+  background-color: #17c5b7;
+}
+
+/* Container for seller information */
+.signup-container {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 30px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.signup-container h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+.signup-form label {
+  display: inline-block;
+  width: 40%;
+  font-size: 16px;
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="number"],
+.signup-form input[type="file"],
+.signup-form select {
+  width: 50%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.signup-form button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.signup-form button:hover {
+  background-color: #45a049;
+}
+
+.signup-form p {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.signup-form p a {
+  color: #4CAF50;
+}
+
+/* Table styles */
+table {
+  font-family: Arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+s
+        </style>
+    </head>
+    <body>
+        <nav> 
+            <h1 style="text-align:center;
+            font-family:'Times New Roman', Times, serif;
+            font-size: 50px;
+            color: white;">Shop Buddy</h1>
+            <button id="back" class="cart" type="submit">Back</button>
+          </nav>
+          <h1 style="text-align:center;">Welcome sellor</h1>
+          <h3 style="text-align:center;">To get your monthly report choose month</h3>
+          <div style="display: flex; justify-content: center;">
+          <select id="months">
+            <option>Select</option>
+            <option value="Jan">January</option>
+            <option value="Feb">February</option>
+            <option value="Mar">March</option>
+            <option value="Apr">April</option>
+            <option value="May">May</option>
+            <option value="Jun">June</option>
+            <option value="Jul">July</option>
+            <option value="Aug">August</option>
+            <option value="Sep">September</option>
+            <option value="Oct">October</option>
+            <option value="Nov">November</option>
+            <option value="Dec">December</option>
+          </select>       
+        </div>   
+        <table id="table">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Quantity</th>
+                <th>Grand Total</th>
+            </tr>
+        </table>
+    </body>
+    <script>
+        const back=document.getElementById("back");
+        const table=document.getElementById("table");
+        const month=document.getElementById("months");
+        const trToKeep = table.querySelectorAll('tr')[0];
+        back.addEventListener("click",function(){
+            window.location.href="/";
+        });
+        month.addEventListener("change",function(){
+            // table.innerHTML="";
+            Array.from(table.querySelectorAll('tr')).forEach(tr => {
+    if (tr !== trToKeep) {
+        tr.remove();
+    }
+});
+            let selectedMonth = month.value;
+            getreport(selectedMonth,function(err,data){
+                if(err) {
+                    console.log("Error");
+                }
+                else{
+                    data.forEach(function(x){
+                        addtodom(x);
+                    });
+                }
+            });
+        })
+        function getreport(month,callback){
+            fetch("/getreport?month="+month).then(function(response){
+                if(response.status==200)
+                {
+                    return response.json();
+                }
+                callback("error",null);
+                return;
+            }).then(function(data){
+                callback(null,data);
+                return;
+            }).catch(function(error){
+                callback(error,null);
+                return;
+            });
+        }
+        function addtodom(prdct)
+        {
+            var row = document.createElement('tr');
+            var cell1 = document.createElement('td');
+            var cell2 = document.createElement('td');
+            var cell3 = document.createElement('td');
+            var cell4 = document.createElement('td');
+            cell1.innerHTML=prdct.product;
+            cell2.innerHTML=prdct.price;
+            cell3.innerHTML=prdct.quantity;
+            cell4.innerHTML=prdct.price*prdct.quantity+"$";
+            table.appendChild(row);
+            row.appendChild(cell1);
+            row.appendChild(cell2);
+            row.appendChild(cell3);
+            row.appendChild(cell4);
+        }
+    </script>
+</html>

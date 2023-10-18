@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/style.css">
+        <title>Your Cart</title>
+    </head>
+    <body>
+        <nav> 
+            <h1>Shop Buddy</h1>
+            <button id="home" class="cart" type="submit">Return to home</button>
+            <button id="buy" class="cart" type="submit">Buy cart</button>
+          </nav>
+          <div style="display:flex; flex-wrap: wrap;" id="div1"></div>
+          <button id="view"class="view">View More</button>
+          <% if(error) { %>
+            <p style="color: red;"><%= error %></p>
+            <% } %>
+            <div class="container" style="display: none;"id="oops">
+              <h1 class="title">Oops!!</h1>
+              <h2 class="subtitle">Your Cart is empty</h2>
+            </div>
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                  <span class="close-button" id="close">&times;</span>
+                  <h2>Product Details</h2>
+                  <p>Price: $19.99</p>
+                  <p>Description: Lorem ipsum dolor sit amet...</p>
+                </div>
+              </div>
+    </body>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/cart.js"></script>
+</html>

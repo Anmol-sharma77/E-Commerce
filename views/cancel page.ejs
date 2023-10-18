@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cancel Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 20px 0;
+        }
+
+        form {
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            /* padding: 10px; */
+            height: 50px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        select {
+            height: 40px;
+        }
+
+        textarea {
+            width: 100%;
+            /* padding: 10px; */
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            border: none;
+            color: #ffffff;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cancel Product</h1>
+
+    <form id="cancelForm">
+        <label for="cancelReason">Cancel Reason:</label>
+        <select id="cancelReason" name="cancelReason" required>
+            <option value="">Select a reason</option>
+            <option value="Product no longer needed">Product no longer needed</option>
+            <option value="Wrong product ordered">Wrong product ordered</option>
+            <option value="Defective product">Defective product</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label for="comments">Additional Comments:</label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
+
+        <input id="btn" type="submit" value="Submit">
+    </form>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+<script>
+    var cancelForm = document.getElementById("cancelForm");
+    var btn = document.getElementById('btn');
+    var select=document.getElementById("cancelReason");
+    var comments=document.getElementById("comments")
+    btn.addEventListener("click",function(event){
+        event.preventDefault();
+        if(select.value==""||comments.value=="")
+        {
+            console.log("1234");
+            swal({
+                title: 'Error!',
+                text: 'Enter All details',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+              });
+        }
+        else
+        {
+            fetch("/cancelproduct",{
+                method:"POST",
+                headers:{"content-type":"application/json"},
+                body:JSON.stringify({"reason":select.value,"comment":comments.value}),
+            }).then(function(response){
+                if(response.status==200)
+                {
+                    window.location.href="/";
+                }
+                else
+                {
+                    console.log("Error Occured");
+                }
+            })
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sellor sign</title>
+    <link rel="stylesheet" href="/signstyle.css">
+</head>
+<body> 
+    <div class="signup-container">
+        <h2>Seller signup</h2>
+        <form class="signup-form" id="sellersign" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="nam" placeholder="Enter your Name" required>
+            <label  for="age">Age:</label>
+            <input type="text" id="age" name="age" placeholder="Enter your Age" required>
+            <label for="phnumber">Phone Number:</label>
+            <input type="text" id="phnumber" placeholder="Enter your phone number"><br>
+            <label for="mail">Email:</label>
+            <input type="email" id="mail" name="mail" placeholder="Enter your Email" required><br>
+            <label for="pass">Password:</label>
+            <input type="password" id="pass" name="pass" placeholder="Enter your Password" required><br>
+            <label for="dis">District</label>
+            <input type="text" id="dis" name="dis" placeholder="Enter your District" required><br>
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" placeholder="Enter your State" required><br>
+            <label for="orgn">Organisation Name:</label>
+            <input type="text" id="orgn" name="orgn" placeholder="Enter your Organisation Name" required><br>
+            <label for="accnumber">Account Number:</label>
+            <input type="text" id="accnumber" name="accnum" placeholder="Enter your Account number"><br>
+            <label for="Ifsccode">IFSC code:</label>
+            <input type="text" id="Ifsccode" name="ifsccode" placeholder="Enter your IFSC code "><br>
+            <label for="gstNumber">GST Number:</label>
+            <input type="text" id="gstNumber" name="gstnum" placeholder="Enter your GST number"><br>
+            <label for="sellerImage">Seller Image:</label>
+            <input type="file" id="seller-image" name="sellerimg"><br>
+            <label for="file">Adhaar Card:</label>
+            <input style="border: none;" id="file" type="file" name="adhaarimg">
+            <button type="submit" id="btn">Sign Up</button>
+        </form>
+            <p id="errage" style="color: red;">Age must be greater than 18</p>
+            <p id="errpass"style="color: red;">password must me 8 character long</p>
+            <p id="errpass2"style="color: red;">password must contain 1 special character and 1 alphabet</p>
+
+    </div>
+</body>
+<script>
+    const errpass = document.getElementById('errpass');
+    const errpass2 = document.getElementById('errpass2');
+    const errage = document.getElementById('errage');
+    const btn = document.getElementById('btn');
+    const name1=document.getElementById("nam");
+    const age=document.getElementById("age") ;  
+    const dis=document.getElementById("dis");
+    const state=document.getElementById("state");
+    const orgn=document.getElementById("orgn");
+    const file=document.getElementById("file");
+    const mail=document.getElementById("mail");
+    const pass=document.getElementById("pass");
+    const gst=document.getElementById("gstNumber");
+    const pfimage=document.getElementById("seller-image");
+    const accnum=document.getElementById("accnumber");
+    const ifsc=document.getElementById("Ifsccode");
+    const phn=document.getElementById("phnumber");
+    const div=document.getElementById("sellersign");
+    var format = /^(?=.*[-#$.%&@!+=\\*])(?=.*\d)/;
+    const fileInput = document.querySelector('input[type="file"]');
+    age.addEventListener("keyup",function()
+    {
+        if(age.value>=18)
+        {
+            errage.style.color="green";
+        }
+        else
+        {
+            errage.style.color="red";
+        }
+    });
+    pass.addEventListener("keyup",function()
+    {
+        if(pass.value.length>=8)
+        {
+            errpass.style.color="green";
+        }
+        else
+        {
+            errpass.style.color="red";
+        }
+        if(pass.value.match(format))
+        {
+            errpass2.style.color="green";
+        }
+        else
+        {
+            errpass2.style.color="red";
+        }
+    });
+    document.getElementById("sellersign").addEventListener("submit",function(event){
+        event.preventDefault();
+        const p=document.createElement("p");
+        if (name1.value=="" || age.value===""|| dis.value ===""|| state.value=== ""|| orgn.value==""||mail.value==""||pass.value==""||gst.value==""||ifsc.value==""||phn.value==""||accnum.value==""||pfimage.value=="")
+        {
+            p.innerHTML="Fill All fields";
+            div.appendChild(p);
+            div.appendChild(p);
+            setTimeout(function(){
+            div.removeChild(p);
+            },2000);
+        }
+        else if(pass.value.length>=8&&pass.value.match(format)&&age.value>=18)
+        {
+            const filename = fileInput.files[0];
+            const filename2 = fileInput.files[1];
+            const formData = new FormData(document.getElementById("sellersign"));
+            name1.value="";
+            age.value="";
+            dis.value="";
+            state.value="";
+            orgn.value="";
+            file.value="";
+            mail.value="";
+            pass.value="";
+            fetch("/seller",{
+                method:"POST",
+                body:formData,
+            }).then(function(response){
+                if(response.status==200)
+                {
+                    window.location.href="/waiting";
+                }
+                else
+                {
+                    p.innerHTML="Email is already Exist";
+                    p.style.color="red";
+                    div.appendChild(p);
+                    div.appendChild(p);
+                    setTimeout(function(){
+                    div.removeChild(p);
+                    },2000);
+                }
+            });
+        }
+        else{
+            p.innerHTML="Please satisfy all conditions";
+            div.appendChild(p);
+            div.appendChild(p);
+            setTimeout(function(){
+            div.removeChild(p);
+            },2000);
+        }
+    });
+</script>
+</html>
