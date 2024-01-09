@@ -1,51 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sellor sign</title>
+    <title>Seller Sign-Up</title>
     <link rel="stylesheet" href="/signstyle.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            width: 50%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="file"] {
+        width: 120%; /* You can adjust this percentage as needed */
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+        input[type="file"]::file-selector-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        p#error-messages {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body> 
     <div class="signup-container">
-        <h2>Seller signup</h2>
+        <h2>Seller Sign-Up</h2>
         <form class="signup-form" id="sellersign" enctype="multipart/form-data">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="nam" placeholder="Enter your Name" required>
-            <label  for="age">Age:</label>
-            <input type="text" id="age" name="age" placeholder="Enter your Age" required>
-            <label for="phnumber">Phone Number:</label>
-            <input type="text" id="phnumber" placeholder="Enter your phone number"><br>
-            <label for="mail">Email:</label>
-            <input type="email" id="mail" name="mail" placeholder="Enter your Email" required><br>
-            <label for="pass">Password:</label>
-            <input type="password" id="pass" name="pass" placeholder="Enter your Password" required><br>
-            <label for="dis">District</label>
-            <input type="text" id="dis" name="dis" placeholder="Enter your District" required><br>
-            <label for="state">State:</label>
-            <input type="text" id="state" name="state" placeholder="Enter your State" required><br>
-            <label for="orgn">Organisation Name:</label>
-            <input type="text" id="orgn" name="orgn" placeholder="Enter your Organisation Name" required><br>
-            <label for="accnumber">Account Number:</label>
-            <input type="text" id="accnumber" name="accnum" placeholder="Enter your Account number"><br>
-            <label for="Ifsccode">IFSC code:</label>
-            <input type="text" id="Ifsccode" name="ifsccode" placeholder="Enter your IFSC code "><br>
-            <label for="gstNumber">GST Number:</label>
-            <input type="text" id="gstNumber" name="gstnum" placeholder="Enter your GST number"><br>
-            <label for="sellerImage">Seller Image:</label>
-            <input type="file" id="seller-image" name="sellerimg"><br>
-            <label for="file">Adhaar Card:</label>
-            <input style="border: none;" id="file" type="file" name="adhaarimg">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="nam" placeholder="Enter your Name" required>
+            </div>
+            <div class="form-group">
+                <label  for="age">Age:</label>
+                <input type="text" id="age" name="age" placeholder="Enter your Age" required>
+            </div>
+            <div class="form-group">
+                <label for="mail">Email:</label>
+                <input type="email" id="mail" name="mail" placeholder="Enter your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="dis">District</label>
+                <input type="text" id="dis" name="dis" placeholder="Enter your District" required>
+            </div>
+            <div class="form-group">
+                <label for="orgn">Organisation Name:</label>
+                <input type="text" id="orgn" name="orgn" placeholder="Enter your Organisation Name" required>
+            </div>
+            <div class="form-group">
+                <label for="gstNumber">GST Number:</label>
+                <input type="text" id="gstNumber" name="gstnum" placeholder="Enter your GST number">
+            </div>
+            <div class="form-group">
+                <label for="phnumber">Phone Number:</label>
+                <input type="text" id="phnumber" placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="pass">Password:</label>
+                <input type="password" id="pass" name="pass" placeholder="Enter your Password" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" placeholder="Enter your State" required>
+            </div>
+            <div class="form-group">
+                <label for="accnumber">Account Number:</label>
+                <input type="number" id="accnumber" name="accnum" placeholder="Enter your Account number">
+            </div>
+            <div class="form-group">
+                <label for="Ifsccode">IFSC code:</label>
+                <input type="text" id="Ifsccode" name="ifsccode" placeholder="Enter your IFSC code ">
+            </div>
+            <div class="form-group">
+                <label for="sellerImage">Seller Image:</label>
+                <input type="file" id="seller-image" name="sellerimg">
+            </div>
+            <div class="form-group">
+                <label for="file">Adhaar Card:</label>
+                <input style="border: none;" id="file" type="file" name="adhaarimg">
+            </div>
             <button type="submit" id="btn">Sign Up</button>
         </form>
-            <p id="errage" style="color: red;">Age must be greater than 18</p>
-            <p id="errpass"style="color: red;">password must me 8 character long</p>
-            <p id="errpass2"style="color: red;">password must contain 1 special character and 1 alphabet</p>
-
+        <p id="errage" style="color: red;">Age must be greater than 18</p>
+        <p id="errpass" style="color: red;">Password must be 8 characters long</p>
+        <p id="errpass2" style="color: red;">Password must contain 1 special character and 1 alphabet</p>
     </div>
 </body>
 <script>
+    // Your JavaScript code remains unchanged
     const errpass = document.getElementById('errpass');
     const errpass2 = document.getElementById('errpass2');
     const errage = document.getElementById('errage');

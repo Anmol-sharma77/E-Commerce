@@ -31,6 +31,9 @@
     cursor: pointer;
     margin-right: 10px;
   }
+  .cart:hover{
+    background-color: #3498db;
+  }
   h1{
     text-align:center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,7 +41,9 @@
   }
   .product-container {
     border-radius: 10px;
-    background-color:rgba(201, 198, 198, 0.593);
+    background: linear-gradient(135deg, #3498db, #e74c3c);
+    color: white;
+    text-align: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 200px;
@@ -49,7 +54,6 @@
     margin-top: 10px;
 }
 img{
-    margin-left: 25px;
     width:150px;
     height:150px;
     background-color: #333;
@@ -129,13 +133,14 @@ h2{
         </style>
         <title>Your Cart</title>
     </head>
-    <body>
-        <nav> 
-            <h1>Shop Buddy</h1>
-            <button id="reject" class="cart" type="submit">Rejected Request</button>
-            <button id="pending" class="cart" type="submit">Pending request</button>
-            <button id="home" class="cart" type="submit">Return to home</button>
-          </nav>
+    <nav> 
+        <h1>Shop Buddy</h1>
+        <button id="reject" class="cart" type="submit">Rejected Request</button>
+        <button id="pending" class="cart" type="submit">Pending request</button>
+        <button id="home" class="cart" type="submit">Return to home</button>
+      </nav>
+    <body style="background-color:rgba(201, 198, 198, 0.593);">
+    
           <div style="display:flex; flex-wrap: wrap;" id="div1"></div>
           <button id="view"class="view">View More</button>
           <div style="display:none; flex-wrap: wrap;" id="div2"></div>
@@ -314,7 +319,6 @@ function openPopup(prdct) {
   });
 }
 home.addEventListener("click",function(){
-    console.log("1234");
     window.location.href="/" ;
 });
 reject.addEventListener("click",function()

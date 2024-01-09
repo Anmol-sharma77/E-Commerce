@@ -72,10 +72,18 @@
             <input type="submit" id="btn"placeholder="Sing Up">
         </form>
         <p>Already have an account? <a href="/login">Log In</a></p>
-        <% if (error) { %>
-            <p style="color: red;text-align: center;"><%= error %></p>    
-        <% } %>
         <p>Wanna Be A sellor?<a href="/seller">Click Here</a></p>
+        <% if (error) { %>
+            <p id="error" style="color: red;text-align: center;"><%= error %></p>    
+        <% } %>
     </div>
 </body>
+<script>
+const error=document.getElementById("error");
+if(error){
+    setTimeout(()=>{
+        error.remove();
+        },3000);
+        }
+</script>
 </html>

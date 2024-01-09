@@ -4,6 +4,8 @@ const con=require("../../models/database");
 
 const functionroutes=require("./function");
 
+var format = /^(?=.*[-#$.%&@!+=\\*])(?=.*\d)/;
+
 function postproduct(request,response){
     const data=request.body;
     const img=request.files;
@@ -51,10 +53,8 @@ function postproduct(request,response){
   async function approvebyseller(request,response)
   {
     id=request.body.id;
-    console.log(id);
     try{
     await queryAsync(`update orders set ordstatus="approved" where orderid=${id}`);
-    console.log(data);
     response.status(200);
     response.send();
     }catch(error)
@@ -209,8 +209,8 @@ function postproduct(request,response){
     {
       response.render("signup",{error:"Please enter something"});
     }
-    else
-    functionroutes.saveuser(data,function(err)
+    else if(data.password.length>=8&&data.password.match(format)){
+      functionroutes.saveuser(data,function(err)
     {
       if(err)
       {
@@ -221,6 +221,11 @@ function postproduct(request,response){
         response.redirect("/waiting");
       }
     })
+    }
+    else{
+      response.render("signup",{error:"Password should be atleast 8 characters long and contain a number and special character"});
+    }
+    
   }
   const queryAsync = (sql) => {
     return new Promise((resolve, reject) => {
@@ -237,7 +242,6 @@ function postproduct(request,response){
     const userid = request.session.userid;
     const data=request.body;
     try{
-      console.log("body",data);
     var user=await queryAsync(`select * from users where userid=${userid}`);
       user=user[0];
       await queryAsync(`update users set pass='${data.pass}' where userid=${userid}`);
@@ -245,6 +249,7 @@ function postproduct(request,response){
         response.status(200);
         response.send();
   }catch(error){
+    console.log(error);
       response.status(500);
       response.send();
     };

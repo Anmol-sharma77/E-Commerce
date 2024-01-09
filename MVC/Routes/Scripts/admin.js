@@ -5,19 +5,27 @@ const lgout=document.getElementById("lgout");
 const reqbtn=document.getElementById("selreq");
 const proreq=document.getElementById("proreq");
 const seller=document.getElementById("seller");
+const reset=document.getElementById("reset");
 getproduct(function(error,data){
     if(error)
     {
         console.log(error);
-    }else if(data.length==0||data.length<5){
-        more.style.display="none";
     }
     else{
+        if(data.length==0||data.length<5){
+            more.style.display="none";
+        }else{
+            more.style.display="block";
+        }
     num+=5;
     data.forEach(function(x){
      addtodom(x);
     })
 }
+});
+reset.addEventListener("click",function()
+{
+    window.location.href="/newpass";
 });
 lgout.addEventListener("click",function(){
     window.location.href="/logout";
@@ -90,7 +98,7 @@ function openPopup(prdct) {
         popup.style.display = "none";
       }
     });
-  }
+  } 
   more.addEventListener("click",function()
   {
     getproduct(function(error,data){

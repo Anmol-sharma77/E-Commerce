@@ -1,58 +1,100 @@
 const div1=document.getElementById("div1");
-const view=document.getElementById("view");
 const crt=document.getElementById("cart");
-const log=document.getElementById("log");
-const out=document.getElementById("out");
-const orders=document.getElementById("orders");
-const reset=document.getElementById("reset");
-checklogin(function(err)
+const footer=document.getElementById("line");
+const select=document.getElementById("select");
+var totalproducts=0;
+var want=5;
+// checklogin(function(err)
+// {
+//     if(err)
+//     {
+//         console.log(err);
+//     }
+//     else
+//     {
+//         log.style.display="none";
+//         out.style.display="block";
+//         reset.style.display="block";
+//         orders.style.display="block";
+//     }
+// });
+// function checklogin(callback)
+// {
+//     fetch("/check").then(function(response){
+//         if(response.status==200)
+//         {
+//             callback();
+//             return;
+//         }
+//         else
+//         {
+//             callback("something went wrong");
+//         }
+//     });
+// }
+
+async function gettotalproduct(callback)
 {
-    if(err)
+    await fetch("/totalproduct").then(function(response)
+    {
+        return response.json();
+    }).then(function(data){
+        callback(null,data);
+        return;
+    }).catch(function(err)
     {
         console.log(err);
-    }
-    else
-    {
-        log.style.display="none";
-        out.style.display="block";
-        reset.style.display="block";
-        orders.style.display="block";
-    }
-});
-orders.addEventListener("click",function(){
-    window.location.href="/myorders";
-});
-function checklogin(callback)
-{
-    fetch("/check").then(function(response){
-        if(response.status===200)
-        {
-            callback();
-            return;
-        }
-        else
-        {
-            callback("something went wrong");
-        }
-    });
+        return(err,null);
+    })
 }
-getproduct(1,function(error,data){
+getproduct(1,5,function(error,data){
     if(error)
     {
         console.log(error);
     }
     else{
-        if(data.length<5||data.length==0)
-        {
-            view.style.display="none";
-        }
+        data.forEach(function(x){
+            addtodom(x);
+        });
+        select.style.display="block";
+        gettotalproduct(function(err,data)
+{
+    if(err)
+    {
+        console.log("error");
+    }
+    else{
+        console.log(data);
+        totalproducts=data.count;
+        createPagination(data.count,5);
+    }
+    footer.style.display="block";
+});
+    }
+});
+function pages(page){
+    div1.innerHTML="";
+getproduct(page,want,function(error,data){
+    if(error)
+    {
+        console.log(error);
+    }
+    else{
+        footer.style.display="block";
         data.forEach(function(x){
             addtodom(x);
         });
     }
 });
-function getproduct(all,callback){
-    fetch("/products?refresh="+all).then(function(response)
+}
+select.addEventListener("change",function()
+{
+    want=select.value;
+    createPagination(totalproducts,select.value);
+    pages(1);
+});
+function getproduct(page,item,callback){
+    fetch("/products?page="+page+"&item="+item).then(function(response)
     {
         if(response.status===401)
         {
@@ -67,36 +109,25 @@ function getproduct(all,callback){
         return;
     });
 }
-reset.addEventListener("click",function()
-{
-    window.location.href="/newpass";
-});
-log.addEventListener("click",function(event){
-    window.location.href="/login";
-});
-out.addEventListener("click",function(event){
-    log.style.display="block";
-    out.style.display="none";
-    window.location.href="/logout";
-});
-view.addEventListener("click",function(event){
-    getproduct(0,function(error,data)
-    {
-        if(error)
-    {
-        console.log(error);
-    }
-    else{
-        if(data.length<5||data.length==0)
-        {
-            view.style.display="none";
-        }
-        data.forEach(function(x){
-            addtodom(x);
-        });   
-}
-    });
-});
+// view.addEventListener("click",function(event){
+//     div1.innerHTML="";
+//     getproduct(want,0,function(error,data)
+//     {
+//         if(error)
+//     {
+//         console.log(error);
+//     }
+//     else{
+//         if(data.length<5||data.length==0)
+//         {
+//             view.style.display="none";
+//         }
+//         data.forEach(function(x){
+//             addtodom(x);
+//         });   
+// }
+//     });
+// });
 function addtodom(prdct)
 {
     const divv=document.createElement("div");
@@ -157,9 +188,6 @@ function addtodom(prdct)
             }
             else
             {
-                log.style.display="none";
-                out.style.display="block";
-                reset.style.display="block";
                 btn1.innerHTML="Added";
             }
         });
@@ -183,9 +211,6 @@ function addcart(pr,callback){
         }
       });
 }
-crt.addEventListener("click",function(event){
-    window.location.href="/cart";
-});
 function openPopup(prdct) {
   const popupContent = document.querySelector(".popup-content");
   popupContent.innerHTML = `

@@ -5,6 +5,7 @@ num=0;
 const mreport=document.getElementById("monthlyreport");
 const more=document.getElementById("view");
 const btn=document.getElementById("btn");
+const reset=document.getElementById("reset");
 const product=document.getElementById("pr");
 const p=document.createElement("p");
 const p1=document.createElement("p");
@@ -24,11 +25,19 @@ getproduct(function(error,data){
         {
             more.style.display="none";
         }
+        else
+        {
+            more.style.display="block";
+        }
     num+=5;
     data.forEach(function(x){
         addtodom(x);
     });
 }
+});
+reset.addEventListener("click",function()
+{
+    window.location.href="/newpass";
 });
 more.addEventListener("click",function(){
         getproduct(function(error,data){
@@ -64,7 +73,7 @@ btn.addEventListener("click",function(){
     {
         const selectedFile = fileInput.files[0];
         const allowedExtensions = ["jpg", "jpeg", "png", "gif"];
-  const maxSizeInBytes = 250 * 1024; // 5MB
+  const maxSizeInBytes = 250 * 1024;
 
   if (selectedFile) {
     const fileName = selectedFile.name;
@@ -75,7 +84,7 @@ btn.addEventListener("click",function(){
       fileInput.value = ""; 
     }
 
-    if (selectedFile.size > maxSizeInBytes) {
+    else if (selectedFile.size > maxSizeInBytes) {
       alert("File size exceeds the limit. Please upload an image with a size less than 250kb.");
       fileInput.value = ""; 
     }
@@ -90,7 +99,7 @@ btn.addEventListener("click",function(){
             des.value="";
             price.value="";
             quan.value="";
-            fimg.value="";
+            fimg.value=""; 
         fetch("/product",{
             method:"POST",
             body:formData,
@@ -198,7 +207,6 @@ function addtodom(prdct)
     }).then(function(response){
         if(response.status===200)
         {
-            console.log("updated");
             p.style.color="blue";
             p.innerHTML="Updated";
             div2.appendChild(p);

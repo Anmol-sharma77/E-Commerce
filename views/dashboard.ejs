@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html> 
-    <nav> 
-        <h1>Shop Buddy</h1>
-        <button id="cart" class="cart" type="submit">My cart</button>
-        <button id="log" class="cart" type="submit" style="display: block;">Login</button>
-        <button id="orders" class="cart" type="submit" style="display: none;">My Orders</button>
-        <button id="out" class="cart" type="submit" style="display: none;">Logout</button>
-        <button id="reset" class="cart" type="submit" style="float: left; display:none;">Reset Password</button>
-      </nav>
     <head>
+      <link rel="icon" type="image/x-icon" href="/shopping-bag.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.min.css"> 
         <style>
-          *{
+          *{ 
             margin:0;
             padding: 0;
+          }
+          body{
+            background-color:rgba(201, 198, 198, 0.593);
           }
           nav {
     background-color:rgb(57, 56, 56);
@@ -47,17 +46,25 @@
     float: right;
     cursor: pointer;
     margin-right: 10px;
+    text-decoration: none;
+    user-select: none;
+    text-align: center;
+  }
+  .cart:hover{
+    cursor: pointer;
+    background-color: #22a29e;
   }
   h1{
     text-align:center;
     font-family:'Times New Roman', Times, serif;
     font-size: 50px;
     color: white;
-  }
+  } 
   .product-container {
     border-radius: 10px;
-    background-color:rgba(201, 198, 198, 0.593);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #3498db, #e74c3c);
+    text-align: center;
+    color: white;
     padding: 30px;
     width: 200px;
     height: 300px;
@@ -65,9 +72,9 @@
     flex-wrap: wrap;
     margin-left: 40px;
     margin-top: 10px;
+    box-shadow: 0 5px 40px darkslategray;
 }
 img{
-    margin-left: 25px;
     width:150px;
     height:150px;
     background-color: #333;
@@ -85,6 +92,10 @@ img{
     margin-top: 40px;
     margin-left: 10px;
     color: white;
+}
+.btn:hover{
+  background-color:rgb(59, 60, 60);
+  box-shadow: 0 5px 40px rgb(59, 60, 60);
 }
 h2{
     float: left;
@@ -137,16 +148,44 @@ h2{
         <title>Shop Buddy</title>
     </head>
     <body>
+      <nav>  
+        <h1>Shop Buddy</h1>
+        <% if(loggedin){ %>
+          <a id="out" class="cart" type="submit" href="/logout">Logout</a>
+          <a id="orders" class="cart" type="submit" href="/myorders">My Orders</a>
+          <a id="reset" class="cart" type="submit" style="float: left; " href="/newpass">Reset Password</a>
+          <% } else { %>
+            <a id="log" class="cart" type="submit" href="/login">Login</a>
+            <% } %>
+            <a id="cart" class="cart" type="submit" href="/cart">My cart</a>
+            
+      </nav>
         <div style="display:flex; flex-wrap: wrap;" id="div1">
     </div> 
-    <button id="view"class="view">View More</button>
 <div id="popup" class="popup">
     <div class="popup-content">
       <span class="close-button" id="close">&times;</span>
     </div>
   </div>
+  <footer style="margin-top: 10px;">
+  <select id="select" style="text-align: center; float: left; width: 80px; display: none;">
+    <option value="5">5</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+  </select>
+  <div id="pagination"></div> 
   
+  <script> 
+      function createPagination(items,perpage){
+      $('#pagination').pagination({ 
+          items: items,
+          itemsOnPage: perpage,  
+          onPageClick:pages,
+      }); 
+    }
+  </script> 
+</footer>
     </body>
-    <h3 style="text-align: center;">© 1996-2023, Shopbuddy.com, Inc. or its affiliates</h3>
+    <h3 id="line" style="text-align: center;display: none;">© 1996-2023, Shopbuddy.com, Inc. or its affiliates</h3>
     <script src="/dashboard.js"></script>
 </html> 

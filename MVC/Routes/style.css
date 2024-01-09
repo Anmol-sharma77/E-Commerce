@@ -38,7 +38,9 @@ nav {
   }
   .product-container {
     border-radius: 10px;
-    background-color: rgba(201, 198, 198, 0.593);
+    background: linear-gradient(135deg, #3498db, #e74c3c);
+    color: white;
+    text-align: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 200px;
@@ -49,7 +51,6 @@ nav {
     margin-top: 10px;
 }
 img{
-    margin-left: 25px;
     width:150px;
     height:150px;
     background-color: #333;

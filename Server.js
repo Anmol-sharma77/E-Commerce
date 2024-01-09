@@ -102,7 +102,7 @@ app.get("/deliveredorder",getroutes.deliveredorder);
 
 app.get("/deliversorders",getroutes.deliversorders);
 
-app.get("/check",getroutes.checklogin);
+app.get("/totalproduct",getroutes.totalproduct);
 
 app.get("/forgot",getroutes.getforgot);
 

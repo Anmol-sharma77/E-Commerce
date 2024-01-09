@@ -19,9 +19,16 @@ getproduct(function(error,data){
             more.style.display="none";
             buy.style.display="none";
         }
+        else
+        {
+            buy.style.display="block";
+        }
         if(data.length<5)
         {
             more.style.display="none";
+        }else
+        {
+            more.style.display="block";
         }
         obj=data;
         num+=5;
@@ -231,7 +238,7 @@ function deletecart(data,callback)
             callback("Something Went Wrong");
             return;
         }
-    })
+    }) 
 }
 more.addEventListener("click",function(){
     getproduct(function(error,data){

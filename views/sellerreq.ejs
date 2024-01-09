@@ -42,7 +42,9 @@
   }
   .product-container {
     border-radius: 10px;
-    background-color:rgba(201, 198, 198, 0.593);
+    background: linear-gradient(135deg, #3498db, #e74c3c);
+    color: white;
+    text-align: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 200px;
@@ -53,7 +55,6 @@
     margin-top: 10px;
 }
 img{
-    margin-left: 25px;
     width:150px;
     height:150px;
     background-color: #333;
@@ -144,7 +145,7 @@ h2{
         </style>
         <title>Shop Buddy</title>
     </head>
-    <body style="width: 100%; ">
+    <body style="width: 100%;background-color: rgba(201, 198, 198, 0.593); ">
         <div style="display:flex; flex-wrap: wrap;" id="div1">
     </div>
     <div class="container" style="display: none;"id="oops">
@@ -158,6 +159,6 @@ h2{
     </div>
   </div> 
     </body>
-    <h3 style="text-align: center;">© 1996-2023, Shopbuddy.com, Inc. or its affiliates</h3>
+    <h3 id="footer" style="text-align: center; display: none;">© 1996-2023, Shopbuddy.com, Inc. or its affiliates</h3>
     <script src="/selreq.js"></script>
 </html>

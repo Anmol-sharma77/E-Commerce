@@ -82,7 +82,7 @@
             <option value="">Select a reason</option>
             <option value="Product no longer needed">Product no longer needed</option>
             <option value="Wrong product ordered">Wrong product ordered</option>
-            <option value="Defective product">Defective product</option>
+            <option value="Available at lower price">Available at lower price</option>
             <option value="Other">Other</option>
         </select>
 
@@ -102,7 +102,6 @@
         event.preventDefault();
         if(select.value==""||comments.value=="")
         {
-            console.log("1234");
             swal({
                 title: 'Error!',
                 text: 'Enter All details',

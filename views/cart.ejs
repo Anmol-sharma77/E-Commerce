@@ -2,16 +2,17 @@
 <html>
     <head>
         <link rel="stylesheet" href="/style.css">
+        <style>body{background-color:rgba(201, 198, 198, 0.593);};</style>
         <title>Your Cart</title>
     </head>
     <body>
         <nav> 
             <h1>Shop Buddy</h1>
             <button id="home" class="cart" type="submit">Return to home</button>
-            <button id="buy" class="cart" type="submit">Buy cart</button>
+            <button style="display: none;" id="buy" class="cart" type="submit">Buy cart</button>
           </nav>
           <div style="display:flex; flex-wrap: wrap;" id="div1"></div>
-          <button id="view"class="view">View More</button>
+          <button style="display: none;" id="view"class="view">View More</button>
           <% if(error) { %>
             <p style="color: red;"><%= error %></p>
             <% } %>

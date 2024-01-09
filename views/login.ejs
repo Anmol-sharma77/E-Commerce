@@ -72,12 +72,20 @@
             <input required type="text" name="mail" placeholder="Email" required>
             <input required type="password" name="password" placeholder="Password" required>
             <button type="submit" id="btn" >Login</button>
+            <p>Can't remember Password:<a href="/forgot">Forget password</a></p>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
             <% if (error) { %>
-                <p style="color: red;"><%= error %></p>    
+                <p id="error" style="color: red;"><%= error %></p>    
             <% } %>
         </form>
-        <a href="/forgot">Forget password</a>
-        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
     </div>
 </body>
+<script>
+    const error=document.getElementById("error");
+    if(error){
+        setTimeout(()=>{
+            error.remove();
+            },3000);
+            }
+    </script>
 </html>

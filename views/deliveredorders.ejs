@@ -145,7 +145,7 @@ h2{
     </div>
     <div class="container" style="display: none;"id="oops">
       <h1 class="title">Oops!!</h1>
-      <h2 class="subtitle">No request </h2>
+      <h2 class="subtitle">No orders </h2>
     </div> 
     </body>
     <h3 style="text-align: center;">© 1996-2023, Shopbuddy.com, Inc. or its affiliates</h3>
@@ -167,7 +167,6 @@ getorders(function(err,data){
     }
     else
     {
-        console.log(new Date(new Date().getTime()+168*60*60*1000));
         data.forEach(function(x){
             addtodom(x);
         });
@@ -192,7 +191,6 @@ function getorders(callback){
 }
 function addtodom(data)
 {
-  console.log(data);
     const div1=document.createElement("div");
     const div2=document.createElement("div");
     const div3=document.createElement("div");

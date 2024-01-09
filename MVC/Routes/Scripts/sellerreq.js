@@ -1,6 +1,7 @@
 const div=document.getElementById("div1");
 const div2=document.getElementById("oops");
 const back=document.getElementById("back");
+const footer=document.getElementById("footer");
 getreq(function(error,data){
     if(error)
     {
@@ -11,8 +12,8 @@ getreq(function(error,data){
       div2.style.display="block";
     }
     else
+    footer.style.display="block";
     data.forEach(function(x){
-console.log(x);
      addtodom(x);
     });
 });
@@ -36,7 +37,6 @@ function getreq(callback)
 }
 function addtodom(data)
 {
-    console.log(data);
     const divv=document.createElement("div");
     const h2=document.createElement("h2");
     const p=document.createElement("p");

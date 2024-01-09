@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: rgba(201, 198, 198, 0.593);
         }
 
         .signup-container {
@@ -102,23 +103,23 @@
         .product-container {
     background-color: #fff;
     border-radius: 10px;
-    background-color: rgba(201, 198, 198, 0.593);
+    background: linear-gradient(135deg, #3498db, #e74c3c);
+    color: white;
+    text-align: center;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 200px;
-    height: 280px;
     display: block;
     flex-wrap: wrap;
     margin-left: 40px;
     margin-top: 10px;
 }
-h1{
+h1{ 
     text-align:center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
   }
 img{
-    margin-left: 25px;
     width:150px;
     height:150px;
     background-color: #333;
@@ -128,7 +129,6 @@ img{
     height: 30px;
     border-radius: 5px;
     background-color:rgb(34, 36, 37);
-    margin-left: 50px;
     color: white;
     margin-top: 5px;
 }
@@ -181,12 +181,12 @@ img{
         <button id="seller" class="cart" type="submit">Sellers</button>
         <button class="cart" id="selreq">Seller Request</button>
         <button class="cart" id="proreq">Product Request</button>
-        <button id="reset" class="cart" type="submit" style="float: left; display:none;">Reset Password</button>
+        <button id="reset" class="cart" type="submit" style="float: left;">Reset Password</button>
       </nav>
     <h2 style="text-align: center;">Welcome Admin</h2>
     <div style="display:flex; flex-wrap: wrap; " id="div1">
     </div> 
-    <button id="view"class="view">View More</button>
+    <button style="display: none;" id="view"class="view">View More</button>
     <div id="popup" class="popup">
         <div class="popup-content">
           <span class="close-button" id="close">&times;</span>

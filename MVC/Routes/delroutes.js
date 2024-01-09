@@ -34,7 +34,6 @@ functionroutes=require("./function");
 async function delpro(request,response){
     const data=request.body;
     const filename=data.file;
-    console.log(data.id);
     try{
     await queryAsync(`delete from products where prid='${data.id}'`);
       await queryAsync(`delete from cart where prid='${data.id}'`);

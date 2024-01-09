@@ -15,7 +15,6 @@ getorders(function(err,data){
     }
     else
     {
-        console.log(new Date(new Date().getTime()+168*60*60*1000));
         data.forEach(function(x){
             addtodom(x);
         });
@@ -116,7 +115,6 @@ function addtodom(data)
     div4.appendChild(p8);
     div4.appendChild(p6);
     div4.appendChild(p9);
-    console.log(data.ordstatus);
     if(data.ordstatus=="Delivered"||data.ordstatus=="canceled")
     {}
     else

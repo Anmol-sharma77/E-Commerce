@@ -11,7 +11,6 @@ con.connect(function(error){
 async function saveuser(user,callback)
 {
   var d=await queryAsync(`select * from users where mail='${user.mail}'`);
-  console.log(d);
     if(d.length!=0)
     {
       callback("email Exist");
@@ -112,31 +111,16 @@ async function checklogin(log,callback)
       return;
     }
 }
-function getproducts(all,callback){
-    if(all==1)
-    {
-        k=0;
-        j=0;
-    }
-    var data2=[];
-    con.query(`select * from products where status = 'approved'`,function(error,data){
-      console.log(error);
+function getproducts(request,callback){
+    let pageno=request.query.page||1;
+    let itemscount=request.query.item||5;
+    let startindex=(pageno-1)*itemscount;
+    con.query(`select * from products where status = 'approved' limit ${itemscount} OFFSET ${startindex}`,function(error,data){
       if(error){
       callback(error,[]);
       return;}
       else{
-        if(k+5>=data.length)
-      {
-          k=data.length;
-      }
-      else
-      k+=5;
-      for(var i=j;i<k;i++)
-      {
-          data2.push(data[i]);
-      }
-      j=i;
-      callback(null,data2);
+      callback(null,data);
       return;
       }
     });
